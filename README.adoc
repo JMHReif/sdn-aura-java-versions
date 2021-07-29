@@ -6,10 +6,12 @@ This is an example application using Spring Data Neo4j and connecting to a Neo4j
 
 Creating an instance will require creating a user account with Neo4j, but there are no costs for either the account or to create a free tier database instance. Please record the password you create with your instance. It is not shown to you again and will be needed in order to connect the application to the database.
 
+[start=2]
 2. Once the database instance is created, load the data in the database.
 
 From the main page in Neo4j Aura, there should be a blue button next to the instance. Click this to open Neo4j Browser. At the top of Neo4j Browser window, there is a text input. Copy/paste the contents of the java-version-load.cypher script into the text input and click the play button on the right.
 
+[start=3]
 3. Once data is loaded, clone this project and open in your preferred IDE.
 
 4. Open this project's application.properties file and update with your database's credentials.
