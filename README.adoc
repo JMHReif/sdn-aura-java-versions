@@ -18,6 +18,20 @@ From the main page in Neo4j Aura, there should be a blue button next to the inst
 
 The first 3 lines in the application.properties are for URI, username, and password. From the Aura console (not Neo4j Browser window), there should be details about your instance, including a line for `Connection URI`. The username is defaulted to `neo4j`, and the password was shown to you when you created the instance.
 
+== Data set
+
+Data is maintained and pulled from a https://raw.githubusercontent.com/marchof/java-almanac/[Github repository^].
+It contains all published Java versions and compares the changes between any pair of versions in a diff.
+Each diff contains the lists of individual changes (packages, methods, etc) between each version.
+
+An example of the data model is shown below.
+image::src/main/resources/java-version-data-model-v3.png[]
+
+For this project, we are only concentrating on the `JavaVersion` and `VersionDiff` entities.
+The rest of the entities are mapped and returned in another https://github.com/JMHReif/sdn-jdk-versions[Github project^] (work-in-progress).
+
+//Add presentation link when available
+
 == Resources
 * https://dev.neo4j.com/aura[Neo4j Aura console^]
 * https://neo4j.com/developer/aura-cloud-dbaas/[Neo4j Aura developer guides^]
