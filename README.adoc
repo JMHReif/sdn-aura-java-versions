@@ -25,6 +25,7 @@ It contains all published Java versions and compares the changes between any pai
 Each diff contains the lists of individual changes (packages, methods, etc) between each version.
 
 An example of the data model is shown below.
+
 image::src/main/resources/java-version-data-model-v3.png[]
 
 For this project, we are only concentrating on the `JavaVersion` and `VersionDiff` entities.
