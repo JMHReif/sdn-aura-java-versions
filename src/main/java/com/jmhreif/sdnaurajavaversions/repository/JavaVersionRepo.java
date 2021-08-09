@@ -1,5 +1,7 @@
-package com.jmhreif.sdnaurajavaversions;
+package com.jmhreif.sdnaurajavaversions.repository;
 
+import com.jmhreif.sdnaurajavaversions.domain.JavaVersion;
+import com.jmhreif.sdnaurajavaversions.domain.JavaVersionProjection;
 import org.springframework.data.neo4j.repository.Neo4jRepository;
 import org.springframework.data.neo4j.repository.query.Query;
 

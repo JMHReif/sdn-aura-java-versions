@@ -1,5 +1,7 @@
-package com.jmhreif.sdnaurajavaversions;
+package com.jmhreif.sdnaurajavaversions.controller;
 
+import com.jmhreif.sdnaurajavaversions.domain.JavaVersionProjection;
+import com.jmhreif.sdnaurajavaversions.repository.JavaVersionRepo;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

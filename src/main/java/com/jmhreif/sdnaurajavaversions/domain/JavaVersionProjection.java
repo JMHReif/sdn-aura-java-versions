@@ -1,4 +1,4 @@
-package com.jmhreif.sdnaurajavaversions;
+package com.jmhreif.sdnaurajavaversions.domain;
 
 import java.util.List;
 

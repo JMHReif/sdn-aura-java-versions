@@ -1,10 +1,13 @@
-package com.jmhreif.sdnaurajavaversions;
+package com.jmhreif.sdnaurajavaversions.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.jmhreif.sdnaurajavaversions.domain.Module;
+import com.jmhreif.sdnaurajavaversions.domain.Package;
 import org.springframework.data.neo4j.core.schema.GeneratedValue;
 import org.springframework.data.neo4j.core.schema.Id;
 import org.springframework.data.neo4j.core.schema.Node;
 import org.springframework.data.neo4j.core.schema.Relationship;
+
+import java.util.List;
 
 @Node
 public class VersionDiff {
@@ -14,13 +17,11 @@ public class VersionDiff {
 
     private String fromVendor, toVendor, fromVersion, toVersion;
 
-    @Relationship(value = "FROM_NEWER", direction = Relationship.Direction.INCOMING)
-    @JsonIgnoreProperties({"olderVersionDiffs", "newerVersionDiffs"})
-    JavaVersion newerVersion;
+    @Relationship("HAS_DELTA")
+    private List<Module> modules;
 
-    @Relationship(value = "FROM_OLDER",direction = Relationship.Direction.INCOMING)
-    @JsonIgnoreProperties({"olderVersionDiffs", "newerVersionDiffs"})
-    JavaVersion olderVersion;
+    @Relationship("HAS_DELTA")
+    private List<Package> packages;
 
     public VersionDiff(Long neoId, String fromVendor, String toVendor, String fromVersion, String toVersion) {
         this.neoId = neoId;
@@ -50,11 +51,11 @@ public class VersionDiff {
         return toVersion;
     }
 
-    public JavaVersion getNewerVersion() {
-        return newerVersion;
+    public List<Module> getModules() {
+        return modules;
     }
 
-    public JavaVersion getOlderVersion() {
-        return olderVersion;
+    public List<Package> getPackages() {
+        return packages;
     }
 }

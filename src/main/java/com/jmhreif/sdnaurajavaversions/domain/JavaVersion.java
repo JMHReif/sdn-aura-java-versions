@@ -1,6 +1,5 @@
-package com.jmhreif.sdnaurajavaversions;
+package com.jmhreif.sdnaurajavaversions.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.springframework.data.neo4j.core.schema.Id;
 import org.springframework.data.neo4j.core.schema.Node;
 import org.springframework.data.neo4j.core.schema.Property;
@@ -19,11 +18,9 @@ public class JavaVersion {
     private LocalDate gaDate, eolDate;
 
     @Relationship("FROM_NEWER")
-    @JsonIgnoreProperties("newerVersion")
     private List<VersionDiff> olderVersionDiffs;
 
     @Relationship(value = "FROM_OLDER")
-    @JsonIgnoreProperties("olderVersion")
     private List<VersionDiff> newerVersionDiff;
 
     public JavaVersion(String javaVersion, String name, String status, String codeName, String apiSpec, LocalDate gaDate, LocalDate eolDate) {
