@@ -3,6 +3,7 @@
 //Setup:
 CREATE INDEX java_version FOR (j:JavaVersion) ON (j.version);
 CREATE INDEX version_diff FOR (v:VersionDiff) ON (v.fromVersion, v.toVersion);
+CREATE INDEX delta FOR (d:Delta) ON (d.name);
 
 //Queries:
 //1) Load Java versions, along with related sources, features, and refs
@@ -77,3 +78,56 @@ YIELD batches, total, timeTaken, committedOperations, failedOperations, failedBa
 RETURN batches, total, timeTaken, committedOperations, failedOperations, failedBatches , retries, errorMessages , batch , operations, wasTerminated;
 //Total nodes: 390
 //Total rels: 1118
+
+//3) Load all deltas
+MATCH (j:JavaVersion)
+WHERE toFloat(j.version) >= 1.1
+WITH j.version as version ORDER BY toFloat(version)
+WITH collect(version) as list
+UNWIND list as startVersion
+WITH startVersion, list[0..apoc.coll.indexOf(list, startVersion)] as prevList
+WITH startVersion, prevList
+WHERE size(prevList) > 0
+UNWIND prevList as prevVersion
+WITH startVersion, prevVersion
+CALL apoc.load.json("https://raw.githubusercontent.com/marchof/java-almanac/master/site/data/jdk/versions/"+startVersion+"/apidiff/"+prevVersion+".json") YIELD value
+MATCH (d:VersionDiff {fromVersion: value.base.version, toVersion: value.target.version})
+WITH value, d
+WHERE value.deltas IS NOT NULL
+UNWIND value.deltas as level1Delta
+WITH level1Delta, d
+CALL {
+WITH level1Delta, d
+WITH level1Delta, d
+CALL apoc.merge.node([apoc.text.capitalize(level1Delta.type),"Delta"], {name: level1Delta.name},{},{docURL: level1Delta.javadoc, status: level1Delta.status, tags: level1Delta.addedTags}) YIELD node as node1
+MERGE (d)-[r3:HAS_DELTA]->(node1)
+WITH level1Delta, node1
+WHERE level1Delta.deltas IS NOT NULL
+UNWIND level1Delta.deltas as level2Delta
+WITH level2Delta, node1
+CALL {
+WITH level2Delta, node1
+WITH level2Delta, node1
+CALL apoc.merge.node([apoc.text.capitalize(level2Delta.type),"Delta"], {name: level2Delta.name},{},{docURL: level2Delta.javadoc, status: level2Delta.status, tags: level2Delta.addedTags}) YIELD node as node2
+WITH level2Delta, node1, node2
+MERGE (node1)-[r4:HAS_DELTA]->(node2)
+WITH level2Delta, node2
+WHERE level2Delta.deltas IS NOT NULL
+UNWIND level2Delta.deltas as level3Delta
+WITH level3Delta, node2
+CALL {
+WITH level3Delta, node2
+WITH level3Delta, node2
+CALL apoc.merge.node([apoc.text.capitalize(level3Delta.type),"Delta"], {name: level3Delta.name},{},{docURL: level3Delta.javadoc, status: level3Delta.status, tags: level3Delta.addedTags})
+YIELD node as node3
+WITH level3Delta, node2, node3
+MERGE (node2)-[r5:HAS_DELTA]->(node3)
+RETURN node3
+}
+RETURN level3Delta, node3, node2
+}
+RETURN level2Delta, level3Delta, node2, node3
+}
+RETURN count(*);
+//Total nodes: 9109
+//Total rels: 27850

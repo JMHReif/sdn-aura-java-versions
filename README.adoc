@@ -9,7 +9,7 @@ Creating an instance will require creating a user account with Neo4j, but there 
 [start=2]
 2. Once the database instance is created, load the data in the database.
 
-From the main page in Neo4j Aura, there should be a blue button next to the instance. Click this to open Neo4j Browser. At the top of Neo4j Browser window, there is a text input. Copy/paste the contents of the java-version-load.cypher script into the text input and click the play button on the right.
+From the main page in Neo4j Aura, there should be a blue button next to the instance. Click this to open Neo4j Browser. At the top of Neo4j Browser window, there is a text input. Copy/paste the contents of the `java-version-load.cypher` script into the text input and click the play button on the right.
 
 [start=3]
 3. Once data is loaded, clone this project and open in your preferred IDE.
@@ -31,7 +31,11 @@ image::src/main/resources/java-version-data-model-v3.png[]
 For this project, we are only concentrating on the `JavaVersion` and `VersionDiff` entities.
 The rest of the entities are mapped and returned in another https://github.com/JMHReif/sdn-jdk-versions[Github project^] (work-in-progress).
 
-//Add presentation link when available
+== Presentation
+
+PDF versions of accompanying presentations are published to SpeakerDeck.
+
+* https://speakerdeck.com/jmhreif/pouring-coffee-into-the-matrix-building-java-applications-on-neo4j-5c9a8a56-214f-408c-b4f8-9ec08747b28a[Pouring Coffee into the Matrix: Building Java Applications on Neo4j^]
 
 == Resources
 * https://dev.neo4j.com/aura[Neo4j Aura console^]
