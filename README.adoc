@@ -9,7 +9,7 @@ Creating an instance will require creating a user account with Neo4j, but there 
 [start=2]
 2. Once the database instance is created, load the data in the database.
 
-From the main page in Neo4j Aura, there should be a blue button next to the instance. Click this to open Neo4j Browser. At the top of Neo4j Browser window, there is a text input. Copy/paste the contents of the `java-version-load.cypher` script into the text input and click the play button on the right.
+From the main page in Neo4j Aura, there should be a blue button next to the instance. Click this to open Neo4j Browser. At the top of Neo4j Browser window, there is a text input. Copy/paste each statement of the https://github.com/JMHReif/graph-demo-datasets/blob/main/java-versions/java-version-import.cypher[linked script^] into the text input and click the play button on the right.
 
 [start=3]
 3. Once data is loaded, clone this project and open in your preferred IDE.
@@ -28,8 +28,11 @@ An example of the data model is shown below.
 
 image::src/main/resources/java-version-data-model-v3.png[]
 
-For this project, we are only concentrating on the `JavaVersion` and `VersionDiff` entities.
-The rest of the entities are mapped and returned in another https://github.com/JMHReif/sdn-jdk-versions[Github project^] (work-in-progress).
+For this project, we are concentrating on the `JavaVersion`, `VersionDiff`, and first-level delta entities (module and package).
+Code in the following repositories show varying levels of entities mapped and returned:
+
+* Diff level only (no deltas): https://github.com/JMHReif/pouring-coffee-into-matrix[pouring-coffee-into-matrix^]
+* All delta levels (method/field): https://github.com/JMHReif/sdn-jdk-versions[sdn-jdk-versions^]
 
 == Presentation
 
